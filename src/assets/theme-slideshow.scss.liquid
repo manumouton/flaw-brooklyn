@@ -1,0 +1,283 @@
+/*============================================================================
+  To update Slick slider to a new version,
+  scroll down to #Slick Slider SCSS and follow the instructions
+
+  Default Slick classes all start with '.slick'
+  Custom classes all start with '.hero'
+
+  Extra specificity in selectors is used to override default
+  styles before including the default Slick CSS
+==============================================================================*/
+
+/*================ Prev/next and pagination ================*/
+.slick-slider .slick-dots {
+    margin: 0;
+    bottom: 10px;
+
+    li {
+        margin: 0;
+        vertical-align: middle;
+
+        button {
+            position: relative;
+        }
+
+        button:before {
+            text-indent: -9999px;
+            border-radius: 100%;
+            // Colors are set in slideshow.liquid. This is just the default color.
+            background-color: #ffffff;
+            border: 2px solid transparent;
+            width: 10px;
+            height: 10px;
+            margin: 5px 0 0 5px;
+            opacity: 1;
+            @include transition(all 0.2s);
+        }
+
+        &.slick-active button:before {
+            // Colors are set in slideshow.liquid. This is just the default color.
+            background-color: transparent;
+            border-color: #ffffff;
+            opacity: 1;
+            width: 12px;
+            height: 12px;
+            margin: 4px 0 0 4px;
+        }
+
+        button:active:before {
+            opacity: 0.5;
+        }
+    }
+}
+
+.hero {
+    .slick-prev,
+    .slick-next {
+        top: 0;
+        height: 100%;
+        margin-top: 0;
+        width: 40px;
+    }
+
+    .slick-prev {
+        left: 0;
+    }
+
+    .slick-next {
+        right: 0;
+    }
+}
+
+/*============================================================================
+  General slide styles
+    - Sizes based on height of image when 100% of container width
+==============================================================================*/
+.hero__slide {
+    position: relative;
+}
+
+.hero__image {
+    position: relative;
+    opacity: 0;
+
+    .slick-initialized & {
+        opacity: 1;
+        @include animation(fadeIn 1s cubic-bezier(0.44, 0.13, 0.48, 0.87));
+    }
+
+    img {
+        display: block;
+        width: 100%;
+    }
+}
+
+// The overlay color and opacity is set in slideshow.liquid
+.slideshow__overlay:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.hero__slide--hidden {
+    visibility: hidden;
+}
+
+.supports-touch .hero__slide--hidden {
+    visibility: visible;
+}
+
+// z-index stacking issues in oldIE
+.ie9,
+.lt-ie9 {
+    .hero__slide {
+        z-index: 1!important;
+    }
+
+    .slick-dots {
+        z-index: 2;
+    }
+}
+
+/*============================================================================
+  Full screen hero styles
+    - Uses css background image
+==============================================================================*/
+.hero--full-height {
+    // Height is set by JS on slider init. vh is a nice default for modern browsers.
+    height: 100vh;
+    min-height: 550px;
+
+    .slick-list,
+    .slick-track {
+        height: 100%;
+    }
+
+    .hero__image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        // Used for the IE lazysizes object-fit polyfill
+        font-family: "object-fit: cover";
+
+        .lt-ie9 & {
+            background-position: center center;
+        }
+    }
+}
+
+.hero__image {
+    .no-js & {
+        @include visuallyHidden;
+    }
+}
+
+.hero__image-no-js {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    height: 100vh;
+    min-height: 550px;
+    opacity: 1;
+}
+
+/*================ Hero text/CTA ================*/
+.hero__text-wrap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.hero__text-align {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.hero__text-content {
+    position: relative;
+    opacity: 0;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 15px 30px 0;
+    @include transition('color 0.2s ease');
+
+    .slick-initialized & {
+        opacity: 1;
+        @include animation(heroContentIn 1s cubic-bezier(0.44, 0.13, 0.48, 0.87));
+    }
+
+    @include at-query($min, $large) {
+        padding: 15px 150px;
+    }
+}
+
+.hero__text-content .slick-dots {
+    position: static;
+}
+
+/*================ Extra specificity to override Timber defaults ================*/
+.hero__slide {
+    .hero__title {
+        margin-bottom: 20px;
+        line-height: 1.25;
+        letter-spacing: 0;
+    }
+
+    .hero__subtitle {
+    {% if settings.type_accent_subheadings %}
+        @include accentFontStack;
+    {% else %}
+        @include headerFontStack;
+    {% endif %}
+        margin-bottom: 15px;
+    }
+
+    a.hero__cta {
+        margin-bottom: 0;
+    }
+}
+
+/*================ Font sizes ================*/
+.hero__slide {
+    .hero__title {
+        font-size: em(50px);
+    }
+
+    .hero__subtitle {
+        font-size: em(15px);
+    }
+
+    @include at-query($min, $postSmall) {
+        .hero__title {
+            font-size: em(60px);
+        }
+
+        .hero__subtitle {
+            font-size: em(18px);
+        }
+    }
+
+    @include at-query($min, $large) {
+        .hero__title {
+            font-size: em(64px);
+        }
+    }
+}
+
+/*================ Hero header ================*/
+.hero__header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    z-index: $zindexHeroHeader;
+}
+
+.template-index .header-wrapper {
+    opacity: 0;
+    z-index: $zindexHeroHeader;
+    @include animation(fadeIn 0.8s cubic-bezier(0.44, 0.13, 0.48, 0.87) forwards);
+
+    .supports-no-cssanimations & {
+        opacity: 1;
+        @include animation(fadeIn 0.8s cubic-bezier(0.44, 0.13, 0.48, 0.87));
+    }
+}
+
+.header-container {
+    position: relative;
+    z-index: $zindexHeroHeader;
+}
+
+.header-wrapper--over-hero {
+    position: relative;
+}

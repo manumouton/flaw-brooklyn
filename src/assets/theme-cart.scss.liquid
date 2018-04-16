@@ -1,0 +1,157 @@
+/*================ Templates | Cart Page ================*/
+
+.cart__header-labels {
+    @include accentFontStack;
+}
+
+.cart__row {
+    position: relative;
+    margin-bottom: $gutter;
+
+    &:first-child {
+        border-bottom: 1px solid $colorBorder;
+        padding-bottom: $gutter / 2;
+    }
+
+    &:last-child {
+        border-top: 1px solid $colorBorder;
+        padding-top: $gutter / 2;
+    }
+
+    .js-qty {
+        margin: 0 auto;
+    }
+
+    .btn,
+    .btn--secondary {
+        margin-bottom: $gutter / 2;
+    }
+}
+
+@include at-query($min, $postSmall) {
+    .update-cart + .cart__checkout {
+        margin-left: $gutter / 2;
+    }
+}
+
+.cart__row--table {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+
+    .grid__item {
+        display: table-cell;
+        vertical-align: middle;
+        float: none;
+    }
+}
+
+@include at-query ($min, $large) {
+    .cart__row--table-large {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+
+        .grid__item {
+            display: table-cell;
+            vertical-align: middle;
+            float: none;
+        }
+    }
+}
+
+.cart__image {
+    display: block;
+
+    img {
+        width: 100%;
+        display: block;
+    }
+
+    @include at-query($max, $medium) {
+        margin-bottom: $gutter / 2;
+    }
+}
+
+.cart__product-name {
+    @include bodyFontItalic;
+    margin-bottom: 0;
+}
+
+.cart__product-qty {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 80px;
+}
+
+.cart__discount {
+    padding-top: 3px;
+    display: block;
+    @include bodyFontItalic;
+}
+
+.cart__note {
+    margin: 0;
+
+    @include at-query($min, $large) {
+        padding-right: $gutter;
+    }
+}
+
+.cart__product-meta {
+    margin-bottom: 0;
+}
+
+.additional_checkout_buttons {
+    margin-left: -10px;
+
+    & > *:not(script) {
+        padding: 15px 0 0 15px;
+        vertical-align: top;
+        line-height: 1;
+
+        @include at-query($max, $small) {
+            padding: 15px 0 0 5px;
+        }
+
+        &:first-child,
+        &:empty {
+            padding-left: 0px;
+        }
+    }
+}
+
+.cart--continue-browsing {
+    .cart--no-cookies & {
+        display: none;
+    }
+}
+
+.cart--empty-message {
+    .cart--no-cookies & {
+        display: none;
+    }
+}
+
+.cart__price,
+.cart__subtotal {
+    @include accentFontStack;
+}
+
+.cart__price--strikethrough {
+    text-decoration: line-through;
+}
+
+.cart__savings {
+    @include bodyFontItalic;
+    font-size: em(20px);
+}
+
+.cookie-message {
+    display: none;
+    padding-bottom: 25px;
+
+    .cart--no-cookies & {
+        display: block;
+    }
+}

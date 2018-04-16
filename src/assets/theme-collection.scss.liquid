@@ -1,0 +1,20 @@
+.tags--collection {
+    max-width: 75%;
+    margin: 0 auto 25px;
+
+    @include at-query($min, $large) {
+        li {
+            display: inline-block;
+        }
+    }
+
+    @include at-query($max, $small) {
+        li {
+            display: block;
+        }
+    }
+}
+
+.filter-dropdown__label {
+    margin-right: 0.3em;
+}

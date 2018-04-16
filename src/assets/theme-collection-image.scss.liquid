@@ -1,0 +1,63 @@
+/*================ Module | Collection images at top of templates ================*/
+.collection-hero {
+    margin-top: -$contentTopMarginSmall;
+    margin-bottom: $contentTopMarginSmall;
+    overflow: hidden;
+
+    @include at-query($min, $large) {
+        margin-top: -$contentTopMargin + ($gutter / 2);
+        margin-bottom: $contentTopMargin;
+    }
+
+    @include at-query($max, $medium) {
+        margin-bottom: $gutter * 2;
+    }
+}
+
+.collection-hero__image-wrapper {
+    position: relative;
+
+    .no-js & {
+        @include visuallyHidden;
+    }
+}
+
+.collection-hero__image-wrapper:after {
+    padding-bottom: 70%;
+    content: '';
+    display: block;
+    height: 0;
+    width: 100%;
+
+    @include at-query($min, $large) {
+        padding-bottom: 45%;
+    }
+}
+
+.collection-hero__image {
+    position: absolute;
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+    // Used for the IE lazysizes object-fit polyfill
+    font-family: "object-fit: cover";
+    opacity: 0;
+
+    &.is-init {
+        opacity: 1;
+        @include animation(fadeIn 1s cubic-bezier(0.44, 0.13, 0.48, 0.87));
+    }
+}
+
+.collection-hero__image-no-js {
+    padding-bottom: 70%;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    opacity: 1;
+
+    @include at-query($min, $large) {
+        padding-bottom: 45%;
+    }
+}

@@ -1,0 +1,110 @@
+/*================ Newsletter area ================*/
+.newsletter {
+    background-color: $colorNewsletter;
+    padding: $gutter 0;
+    margin-top: $gutter * 2;
+
+    .shopify-section:first-child & {
+        margin-top: -($gutter * 2);
+        @include at-query($min, $postSmall) {
+            margin-bottom: -($gutter * 2);
+            position: relative;
+            top: -($gutter * 5 / 3);
+        }
+    }
+
+    @include at-query($min, $postSmall) {
+        padding: ($gutter * 2) 0;
+    }
+
+    .section-header + .section-subheading {
+        margin-top: -30px;
+        margin-bottom: 30px;
+
+        @include at-query($min, $postSmall) {
+            margin-top: -50px;
+            margin-bottom: 50px;
+        }
+    }
+
+    form {
+        margin: 0 auto;
+        max-width: 520px;
+
+        .newsletter--form {
+            padding: $gutter / 3;
+        }
+        .note, .errors {
+            margin-bottom: 0;
+        }
+    }
+
+    form .newsletter--form,
+    .newsletter__input {
+        background-color: $colorBody;
+        color: $colorTextBody;
+    }
+
+    .newsletter__input {
+        font-size: em(18px);
+        -moz-appearance: textfield;
+        -webkit-appearance: textfield;
+        appearance: textfield;
+
+        &::-webkit-input-placeholder { /* WebKit browsers */
+            color: $colorTextBody;
+            opacity: 1;
+        }
+
+        &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: $colorTextBody;
+            opacity: 1;
+        }
+
+        &::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: $colorTextBody;
+            opacity: 1;
+        }
+
+        &:-ms-input-placeholder { /* Internet Explorer 10+ */
+            color: $colorTextBody;
+        }
+
+        &::-ms-input-placeholder { /* Microsoft Edge 12+ */
+            color: $colorTextBody;
+            opacity: 1;
+        }
+
+        @include at-query($min, $postSmall) {
+            font-size: em(21px);
+        }
+    }
+
+    .newsletter__submit-text--large {
+        white-space: nowrap;
+    }
+}
+
+@include at-query($max, $small) {
+    .newsletter__submit-text--large {
+        display: none;
+    }
+
+    .newsletter__submit-text--small {
+        display: block;
+    }
+}
+
+@include at-query($min, $postSmall) {
+    .newsletter__submit-text--large {
+        display: block;
+    }
+
+    .newsletter__submit-text--small {
+        display: none;
+    }
+}
+
+.newsletter__label {
+    padding-left: 10px;
+}
